@@ -1,23 +1,44 @@
-import React from 'react';
+import React, { use } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
 const SignIn = () => {
-  const handleGoogleSignIn = () => {
-    // এখানে তোমার Google Sign-in ফাংশন বসাও
-    console.log('Google Sign-in triggered');
+
+ const {signInUser} = use(AuthContext);
+
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log({'login' : email, password});
+
+    //sign in user
+    signInUser(email, password) 
+    .then(result => {
+      console.log(result.user);
+    })
+    .catch(error=> {
+     console.log(error.massage);
+    })
   };
+
+  const handleGoogleSignIn = () => {
+
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#fdf4ff] via-[#fae8ff] to-[#f0abfc] flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-white shadow-lg rounded-xl p-8 space-y-6">
         <h2 className="text-3xl font-bold text-center text-fuchsia-600">Sign In</h2>
 
-        <form className="space-y-4">
+        <form onSubmit={handleSignIn} className="space-y-4">
           {/* Email */}
           <div>
             <label className="block mb-1 font-medium text-fuchsia-700">Email</label>
             <input
               type="email"
+              name='email'
               placeholder="Enter your email"
               className="w-full border border-fuchsia-500 shadow-md px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-fuchsia-300"
               required
@@ -29,6 +50,7 @@ const SignIn = () => {
             <label className="block mb-1 font-medium text-fuchsia-700">Password</label>
             <input
               type="password"
+              name='password'
               placeholder="Enter your password"
               className="w-full border border-fuchsia-500 shadow-md px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-fuchsia-300"
               required

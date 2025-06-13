@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { use } from 'react';
 import { Link, NavLink } from 'react-router';
+import { AuthContext } from '../context/AuthContext';
 
 const Navbar = () => {
+
+  const {user, signOutUser} = use(AuthContext);
+
+  const handleSignOut = () => {
+    signOutUser()
+    .then(()=> {
+      console.log("sign out user");
+    })
+    .catch((error) => {
+      console.log(error.message);
+    })
+  }
 
   const navLinkClass = ({ isActive }) => {
    return isActive ? "text-fuchsia-500 border-b-4 border-fuchsia-500 pb-1 font-semibold text-lg"
@@ -57,7 +70,9 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="navbar-end">
-            <Link to={'/sign-in'} className="btn bg-fuchsia-500 text-white">Sign In</Link>
+           {
+            user ?  <Link onClick={handleSignOut}  className="btn bg-fuchsia-500 text-white">Sign Out</Link> :  <Link to={'/sign-in'} className="btn bg-fuchsia-500 text-white">Sign In</Link>
+           }
           </div>
         </div>
       </div>
