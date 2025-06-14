@@ -4,7 +4,7 @@ import { AuthContext } from '../context/AuthContext';
 
 const SignIn = () => {
 
- const {signInUser} = use(AuthContext);
+ const {signInUser, signInWithGoogle} = use(AuthContext);
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -24,7 +24,13 @@ const SignIn = () => {
   };
 
   const handleGoogleSignIn = () => {
-
+     signInWithGoogle()
+     .then(res => {
+      console.log(res);
+     })
+     .catch(err => {
+      console.log(err);
+     })
   }
 
   return (
