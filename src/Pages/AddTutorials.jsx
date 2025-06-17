@@ -1,5 +1,7 @@
 import React, { use } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const AddTutorials = () => {
   const {user} = use(AuthContext)
@@ -11,24 +13,22 @@ const AddTutorials = () => {
   const newtutorials = Object.fromEntries(formData.entries())
   newtutorials.email = user?.email
   newtutorials.likedBy = []
-  //save tutorials data 
-  fetch(`${import.meta.env.VITE_API_URL}/add-tutorials`,{
-    method: 'POST',
-    headers:{
-      'content-type': 'application/json'
-    },
-    body:JSON.stringify(newtutorials),
-  }).then(res=> res.json())
+  
+  axios.post(`${import.meta.env.VITE_API_URL}/add-tutorials`, newtutorials)
   .then(data => {
-    console.log(data);
-    form.reset();
+    Swal.fire({
+  title: "Your tutorial added successfully!",
+  icon: "success",
+  draggable: true
+});
+ form.reset();
   })
   .catch(err => {
     console.log('Failed to add tutorial:', err.message);
   })
 
-  console.log(newtutorials);
-  }
+  // console.log(newtutorials);
+   }
  
 
   return (
@@ -38,7 +38,7 @@ const AddTutorials = () => {
 
         <form onSubmit={handleAddTutorials} className="space-y-6">
 
-          {/* 1st Line: User Name + Email */}
+   
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block mb-1 font-medium text-fuchsia-700">User Name</label>
@@ -67,7 +67,6 @@ const AddTutorials = () => {
             </div>
           </div>
 
-          {/* 2nd Line: Image */}
           <div>
             <label className="block mb-1 font-medium text-fuchsia-700">Tutorial Image URL</label>
             <input
@@ -79,14 +78,14 @@ const AddTutorials = () => {
             />
           </div>
 
-          {/* 3rd Line: Language + Price */}
+        
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block mb-1 font-medium text-fuchsia-700">Language</label>
               <input
                 type="text"
                 name="language"
-                placeholder="E.g. JavaScript"
+                placeholder="English,Bangla etc"
                 className="w-full border border-fuchsia-400 px-3 py-2 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-fuchsia-300"
                 required
               />
