@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useLoaderData } from 'react-router';
+import TutorCard from '../Components/TutorCard';
 
 const MyTutorials = () => {
+   const data = useLoaderData();
+  const [tutorials, setTutorials] = useState(data?.data || [])
+  console.log(data.data);
   return (
      <>
-       <h1> MyTutorials</h1>
+     
+       {
+        tutorials.map(tutorial => {
+         return <TutorCard key={tutorial._id} tutor={tutorial}/>
+        })
+       }
+       
      </>
   );
 };

@@ -4,20 +4,20 @@ import { AuthContext } from '../context/AuthContext';
 
 const Navbar = () => {
 
-  const {user, signOutUser} = use(AuthContext);
+  const { user, signOutUser } = use(AuthContext);
 
   const handleSignOut = () => {
     signOutUser()
-    .then(()=> {
-      console.log("sign out user");
-    })
-    .catch((error) => {
-      console.log(error.message);
-    })
+      .then(() => {
+        console.log("sign out user");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      })
   }
 
   const navLinkClass = ({ isActive }) => {
-   return isActive ? "text-fuchsia-500 border-b-4 border-fuchsia-500 pb-1 font-semibold text-lg"
+    return isActive ? "text-fuchsia-500 border-b-4 border-fuchsia-500 pb-1 font-semibold text-lg"
       : "font-semibold text-lg";
   }
   return (
@@ -34,22 +34,24 @@ const Navbar = () => {
                 className="menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                 <li className='font-semibold text-lg'><NavLink to={'/'} className={navLinkClass}>Home</NavLink></li>
 
-    
-              <li className='font-semibold text-lg'>
-                <NavLink to={'/find-tutors'} className={navLinkClass}>Find tutors
-              </NavLink></li>
-              <li className='font-semibold text-lg'>
-                <NavLink to={'/add-tutorials'} className={navLinkClass}>Add Tutorials  </NavLink> </li>
 
-              <li className='font-semibold text-lg'>
-                <NavLink to={'/my-tutorials'} className={navLinkClass}>My Tutorials  </NavLink></li>
+                <li className='font-semibold text-lg'>
+                  <NavLink to={'/find-tutors'} className={navLinkClass}>Find tutors
+                  </NavLink></li>
+                <li className='font-semibold text-lg'>
+                  <NavLink to={'/add-tutorials'} className={navLinkClass}>Add Tutorials  </NavLink> </li>
 
-              <li className='font-semibold text-lg'>
-                <NavLink to={'/my-booked-tutors'} className={navLinkClass}>My booked tutorials  </NavLink></li>
+                <li className='font-semibold text-lg'>
+                  <NavLink to={`/my-tutorials/${user?.email}`} className={navLinkClass}>My Tutorials</NavLink>
+                </li>
+
+
+                <li className='font-semibold text-lg'>
+                  <NavLink to={'/my-booked-tutors'} className={navLinkClass}>My booked tutorials  </NavLink></li>
 
               </ul>
             </div>
-            <a className=" text-4xl font-semibold text-fuchsia-500">TutorNexus</a>
+            <Link to={'/'} className=" text-4xl font-semibold text-fuchsia-500">TutorNexus</Link>
           </div>
           <div className="navbar-center hidden lg:flex">
             <ul className="menu-horizontal px-1 gap-4">
@@ -57,12 +59,14 @@ const Navbar = () => {
 
               <li className='font-semibold text-lg'>
                 <NavLink to={'/find-tutors'} className={navLinkClass}>Find tutors
-              </NavLink></li>
+                </NavLink></li>
               <li className='font-semibold text-lg'>
                 <NavLink to={'/add-tutorials'} className={navLinkClass}>Add Tutorials  </NavLink> </li>
 
               <li className='font-semibold text-lg'>
-                <NavLink to={'/my-tutorials'} className={navLinkClass}>My Tutorials  </NavLink></li>
+                <NavLink to={`/my-tutorials/${user?.email}`} className={navLinkClass}>My Tutorials</NavLink>
+              </li>
+
 
               <li className='font-semibold text-lg'>
                 <NavLink to={'/my-booked-tutors'} className={navLinkClass}>My booked tutors  </NavLink></li>
@@ -70,9 +74,9 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="navbar-end">
-           {
-            user ?  <Link onClick={handleSignOut}  className="btn bg-fuchsia-500 text-white">Sign Out</Link> :  <Link to={'/sign-in'} className="btn bg-fuchsia-500 text-white">Sign In</Link>
-           }
+            {
+              user ? <Link onClick={handleSignOut} className="btn bg-fuchsia-500 text-white">Sign Out</Link> : <Link to={'/sign-in'} className="btn bg-fuchsia-500 text-white">Sign In</Link>
+            }
           </div>
         </div>
       </div>

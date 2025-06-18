@@ -7,40 +7,52 @@ import SignIn from "../Pages/SignIn";
 import AddTutorials from "../Pages/AddTutorials";
 import MyTutorials from "../Pages/MyTutorials";
 import MyBookedTutors from "../Pages/MyBookedTutors";
+import axios from "axios";
+import TutorDetails from "../Pages/tutorDetails";
+import PrivateRoute from "../context/PrivetRoute";
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <HomeLayout/>,
-    children:[{
+    element: <HomeLayout />,
+    children: [{
       index: true,
-      element: <Home/>   
+      loader: () => axios(`${import.meta.env.VITE_API_URL}/tutorials`),
+      element: <Home />
     },
     {
       path: '/find-tutors',
-      element: <FindTutors/>
+      element: <FindTutors />
+    },
+    {
+      path: '/tutorial/:id',
+      loader: ({ params }) =>
+      axios(`${import.meta.env.VITE_API_URL}/tutorial/${params.id}`),
+      element: <TutorDetails />
     },
     {
       path: '/add-tutorials',
-      element: <AddTutorials/>
+      element: <AddTutorials />
     },
     {
-      path: '/my-tutorials',
-      element: <MyTutorials/>
+      path: '/my-tutorials/:email',
+      loader: ({params}) =>
+       axios(`${import.meta.env.VITE_API_URL}/my-tutorials/${params.email}`),
+      element: <PrivateRoute><MyTutorials /></PrivateRoute>
     },
     {
       path: '/my-booked-tutors',
-      element: <MyBookedTutors/>
+      element: <MyBookedTutors />
     },
     {
       path: '/register',
-      element: <Registration/>
+      element: <Registration />
     },
     {
       path: '/sign-in',
-      element: <SignIn/>
+      element: <SignIn />
     }
-  ]
+    ]
   }
 ])
 

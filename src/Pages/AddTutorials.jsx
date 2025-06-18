@@ -12,7 +12,7 @@ const AddTutorials = () => {
   const formData = new FormData(form)
   const newtutorials = Object.fromEntries(formData.entries())
   newtutorials.email = user?.email
-  newtutorials.likedBy = []
+  newtutorials.review = 0;
   
   axios.post(`${import.meta.env.VITE_API_URL}/add-tutorials`, newtutorials)
   .then(data => {
