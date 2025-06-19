@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const TutorCard = ({ tutor }) => {
-  const { userName, rating, language, description, image } = tutor;
+  const {_id, userName, rating, language, description, image } = tutor;
 
   return (
     <div className="flex border border-fuchsia-500 rounded-xl shadow-lg p-6 items-center space-x-6 max-w-4xl mx-auto my-6 bg-white cursor-pointer hover:bg-fuchsia-50 transition duration-300">
@@ -21,9 +22,11 @@ const TutorCard = ({ tutor }) => {
         <p className="text-base text-gray-700 font-medium mb-1">Language: {language}</p>
         <p className="text-gray-700 text-sm mb-4">{description}</p>
 
-        <button className="bg-fuchsia-500 hover:bg-fuchsia-600 text-white px-5 py-2.5 rounded-md text-sm shadow-md transition">
+       <Link to={`/tutorial/${_id}`}>
+        <button className="bg-fuchsia-500 hover:bg-fuchsia-600 text-white px-5 py-2.5 rounded-md text-sm shadow-md transition cursor-pointer">
           View Details
         </button>
+       </Link>
       </div>
     </div>
   );

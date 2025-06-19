@@ -13,6 +13,7 @@ const AddTutorials = () => {
   const newtutorials = Object.fromEntries(formData.entries())
   newtutorials.email = user?.email
   newtutorials.review = 0;
+  newtutorials.book = [];
   
   axios.post(`${import.meta.env.VITE_API_URL}/add-tutorials`, newtutorials)
   .then(data => {

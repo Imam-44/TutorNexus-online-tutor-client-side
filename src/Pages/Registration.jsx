@@ -24,6 +24,7 @@ const Registration = () => {
       //update display name
       updateProfile(createUser, {
         displayName: name,
+        photoURL: photoUrl,
       }).then(()=> {
         console.log("profile update successfully");
       })
