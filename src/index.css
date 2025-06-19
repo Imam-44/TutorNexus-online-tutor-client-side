@@ -3,9 +3,10 @@
 
 
 /* tailwind setup  */
+@import "tailwindcss/preflight";
+@tailwind utilities;
 @import "tailwindcss";
-@plugin "daisyui";
-
+@plugin "daisyui" ;
 
 *{
   font-family: "Figtree", sans-serif;

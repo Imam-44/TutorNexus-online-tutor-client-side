@@ -31,11 +31,11 @@ const router = createBrowserRouter([
       path: '/tutorial/:id',
       loader: ({ params }) =>
       axios(`${import.meta.env.VITE_API_URL}/tutorial/${params.id}`),
-      element: <TutorDetails />
+      element: <PrivateRoute><TutorDetails /></PrivateRoute>
     },
     {
       path: '/add-tutorials',
-      element: <AddTutorials />
+      element: <PrivateRoute><AddTutorials /></PrivateRoute>
     },
     {
       path: '/my-tutorials/:email',
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
     },
     {
       path: '/my-booked-tutors',
-      element: <MyBookedTutors />
+      element: <PrivateRoute><MyBookedTutors /></PrivateRoute>
     },
     {
       path: '/register',
