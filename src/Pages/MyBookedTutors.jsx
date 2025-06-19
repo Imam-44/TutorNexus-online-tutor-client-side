@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
+import Loading from '../Components/Loading';
 
 const MyBookedTutors = () => {
   const { user } = React.useContext(AuthContext);
@@ -8,6 +9,7 @@ const MyBookedTutors = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     if (!user?.email) return;
     axios.get(`${import.meta.env.VITE_API_URL}/my-booked-tutorials/${user.email}`)
       .then(res => {
@@ -39,7 +41,7 @@ const MyBookedTutors = () => {
     }
   };
 
-  if (loading) return <p>Loading your booked tutorials...</p>;
+  if (loading) return <Loading></Loading>;
   if (bookedTutorials.length === 0) return <p>You have no booked tutorials yet.</p>;
 
   return (

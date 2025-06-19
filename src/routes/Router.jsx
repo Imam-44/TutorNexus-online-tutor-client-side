@@ -10,6 +10,8 @@ import MyBookedTutors from "../Pages/MyBookedTutors";
 import axios from "axios";
 import TutorDetails from "../Pages/tutorDetails";
 import PrivateRoute from "../context/PrivetRoute";
+import Loading from "../Components/Loading";
+import Error from "../Pages/error";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +20,7 @@ const router = createBrowserRouter([
     children: [{
       index: true,
       loader: () => axios(`${import.meta.env.VITE_API_URL}/tutorials`),
+      hydrateFallbackElement: <Loading/>,
       element: <Home />
     },
     {
@@ -38,6 +41,7 @@ const router = createBrowserRouter([
       path: '/my-tutorials/:email',
       loader: ({params}) =>
        axios(`${import.meta.env.VITE_API_URL}/my-tutorials/${params.email}`),
+      hydrateFallbackElement: <Loading/>,
       element: <PrivateRoute><MyTutorials /></PrivateRoute>
     },
     {
@@ -53,6 +57,10 @@ const router = createBrowserRouter([
       element: <SignIn />
     }
     ]
+  },
+  {
+    path: "*",
+    element: <Error/>
   }
 ])
 
