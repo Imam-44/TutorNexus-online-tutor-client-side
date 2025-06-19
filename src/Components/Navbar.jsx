@@ -27,17 +27,17 @@ const Navbar = () => {
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost text-fuchsia-500 lg:hidden">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> 
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /> 
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
               </svg>
             </div>
-            <ul tabIndex={0} className="menu-sm dropdown-content bg-base-100 dark:bg-gray-800 rounded-box z-10 mt-3 w-52 p-2 shadow">
+            <ul tabIndex={0} className="menu-sm dropdown-content bg-base-100  rounded-box z-10 mt-3 w-52 p-2 shadow">
               <li><NavLink to="/" className={navLinkClass}>Home</NavLink></li>
               <li><NavLink to="/find-tutors" className={navLinkClass}>Find Tutors</NavLink></li>
               <li><NavLink to="/add-tutorials" className={navLinkClass}>Add Tutorials</NavLink></li>
               <li><NavLink to={`/my-tutorials/${user?.email}`} className={navLinkClass}>My Tutorials</NavLink></li>
               <li><NavLink to="/my-booked-tutors" className={navLinkClass}>My Booked Tutors</NavLink></li>
-               {/* Theme toggle for mobile only */}
+              {/* Theme toggle for mobile only */}
               <li className="lg:hidden">
                 <button
                   onClick={toggleTheme}
@@ -47,7 +47,7 @@ const Navbar = () => {
                   <span>{theme === 'light' ? 'Dark Mode' : 'Light Mode'}</span>
                 </button>
               </li>
-              
+
             </ul>
           </div>
           <Link to="/" className="text-3xl font-bold text-fuchsia-500">TutorNexus</Link>
@@ -66,14 +66,7 @@ const Navbar = () => {
 
         {/* Navbar End */}
         <div className="navbar-end flex items-center gap-4">
-         {/* Theme Toggle - Desktop only */}
-          <button
-            onClick={toggleTheme}
-            className="btn btn-circle btn-outline p-1 text-xl text-pink-500 hidden lg:inline-flex"
-            title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
-          >
-            {theme === 'light' ? <FiMoon size={24} /> : <FiSun size={24} />}
-          </button>
+
 
           {user ? (
             <>
@@ -90,6 +83,14 @@ const Navbar = () => {
                   {user.displayName}
                 </div>
               </div>
+              {/* Theme Toggle - Desktop only */}
+              <button
+                onClick={toggleTheme}
+                className="btn btn-circle btn-outline p-1 text-xl text-pink-500 hidden lg:inline-flex"
+                title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+              >
+                {theme === 'light' ? <FiMoon size={24} /> : <FiSun size={24} />}
+              </button>
               <button onClick={signOutUser} className="btn bg-fuchsia-500 text-white">Sign Out</button>
             </>
           ) : (
