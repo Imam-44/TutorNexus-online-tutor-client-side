@@ -29,7 +29,7 @@ const LanguageCategory = () => {
   const navigate = useNavigate();
 
   const handleCardClick = (language) => {
-    // URL query দিয়ে পাঠিয়ে দিচ্ছি
+   
     navigate(`/find-tutors?lang=${language.toLowerCase()}`);
   };
 
