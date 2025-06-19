@@ -14,15 +14,15 @@ import {
 } from 'react-icons/fa';
 
 const languages = [
-  { title: 'English', count: '33,602 teachers', icon: <FaClock /> },
-  { title: 'Spanish', count: '10,056 teachers', icon: <FaGopuram /> },
-  { title: 'French', count: '3,714 teachers', icon: <FaPagelines /> },
-  { title: 'German', count: '1,518 teachers', icon: <FaCity /> },
-  { title: 'Italian', count: '2,542 teachers', icon: <FaMonument /> },
-  { title: 'Chinese', count: '5,253 teachers', icon: <FaLandmark /> },
-  { title: 'Arabic', count: '3,651 teachers', icon: <FaUniversity /> },
-  { title: 'Japanese', count: '2,902 teachers', icon: <FaToriiGate /> },
-  { title: 'Portuguese', count: '1,635 teachers', icon: <FaChurch /> },
+  { title: 'English',  icon: <FaClock /> },
+  { title: 'Spanish', icon: <FaGopuram /> },
+  { title: 'French',  icon: <FaPagelines /> },
+  { title: 'German',  icon: <FaCity /> },
+  { title: 'Italian',  icon: <FaMonument /> },
+  { title: 'Chinese',  icon: <FaLandmark /> },
+  { title: 'Arabic',  icon: <FaUniversity /> },
+  { title: 'Japanese',  icon: <FaToriiGate /> },
+  { title: 'Portuguese', icon: <FaChurch /> },
 ];
 
 const LanguageCategory = () => {
