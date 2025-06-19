@@ -1,45 +1,44 @@
-import React, { use } from 'react';
+import React from 'react';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const AddTutorials = () => {
-  const {user} = use(AuthContext)
-  const handleAddTutorials = e => {
-      e.preventDefault()
-  const form = e.target;
+  const { user } = React.useContext(AuthContext);
 
-  const formData = new FormData(form)
-  const newtutorials = Object.fromEntries(formData.entries())
-  newtutorials.email = user?.email
-  newtutorials.review = 0;
-  newtutorials.book = [];
-  
-  axios.post(`${import.meta.env.VITE_API_URL}/add-tutorials`, newtutorials)
-  .then(data => {
-    Swal.fire({
-  title: "Your tutorial added successfully!",
-  icon: "success",
-  draggable: true
-});
- form.reset();
-  })
-  .catch(err => {
-    console.log('Failed to add tutorial:', err.message);
-  })
+  const handleAddTutorials = (e) => {
+    e.preventDefault();
+    const form = e.target;
 
-  // console.log(newtutorials);
-   }
- 
+    const formData = new FormData(form);
+    const newtutorials = Object.fromEntries(formData.entries());
+    newtutorials.email = user?.email;
+    newtutorials.review = 0;
+    newtutorials.book = [];
+
+    axios
+      .post(`${import.meta.env.VITE_API_URL}/add-tutorials`, newtutorials)
+      .then((data) => {
+        Swal.fire({
+          title: "Your tutorial added successfully!",
+          icon: "success",
+          draggable: true,
+        });
+        form.reset();
+      })
+      .catch((err) => {
+        console.log("Failed to add tutorial:", err.message);
+      });
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#fdf4ff] via-[#fae8ff] to-[#f0abfc] flex items-center justify-center px-4">
       <div className="w-full max-w-4xl bg-white shadow-xl rounded-xl p-8 space-y-6">
-        <h2 className="text-3xl font-bold text-center text-fuchsia-600">Add New Tutorial</h2>
+        <h2 className="text-3xl font-bold text-center text-fuchsia-600">
+          Add New Tutorial
+        </h2>
 
         <form onSubmit={handleAddTutorials} className="space-y-6">
-
-   
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block mb-1 font-medium text-fuchsia-700">User Name</label>
@@ -49,8 +48,7 @@ const AddTutorials = () => {
                 placeholder="Your name"
                 value={user?.displayName || ''}
                 className="w-full border border-fuchsia-400 px-3 py-2 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-fuchsia-300"
-                 readOnly
-                
+                readOnly
               />
             </div>
 
@@ -63,7 +61,6 @@ const AddTutorials = () => {
                 placeholder="Your email"
                 className="w-full border border-fuchsia-400 px-3 py-2 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-fuchsia-300"
                 readOnly
-                
               />
             </div>
           </div>
@@ -79,17 +76,28 @@ const AddTutorials = () => {
             />
           </div>
 
-        
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block mb-1 font-medium text-fuchsia-700">Language</label>
-              <input
-                type="text"
+              <select
                 name="language"
-                placeholder="English,Bangla etc"
                 className="w-full border border-fuchsia-400 px-3 py-2 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-fuchsia-300"
                 required
-              />
+                defaultValue=""
+              >
+                <option value="" disabled>
+                  Select a language
+                </option>
+                <option value="English">English</option>
+                <option value="Spanish">Spanish</option>
+                <option value="French">French</option>
+                <option value="German">German</option>
+                <option value="Italian">Italian</option>
+                <option value="Chinese">Chinese</option>
+                <option value="Arabic">Arabic</option>
+                <option value="Japanese">Japanese</option>
+                <option value="Portuguese">Portuguese</option>
+              </select>
             </div>
 
             <div>
@@ -100,11 +108,11 @@ const AddTutorials = () => {
                 placeholder="$99"
                 className="w-full border border-fuchsia-400 px-3 py-2 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-fuchsia-300"
                 required
+                min="0"
               />
             </div>
           </div>
 
-          {/* Description */}
           <div>
             <label className="block mb-1 font-medium text-fuchsia-700">Description</label>
             <textarea
@@ -116,19 +124,6 @@ const AddTutorials = () => {
             />
           </div>
 
-          {/* Review */}
-          {/* <div>
-            <label className="block mb-1 font-medium text-fuchsia-700">Review</label>
-            <input
-              type="number"
-              name="review"
-              value="0"
-              readOnly
-              className="w-full border border-fuchsia-400 px-4 py-2 rounded-md shadow-md bg-gray-100"
-            />
-          </div> */}
-
-          {/* Submit Button */}
           <div>
             <button
               type="submit"
@@ -137,7 +132,6 @@ const AddTutorials = () => {
               Add Tutorial
             </button>
           </div>
-
         </form>
       </div>
     </div>

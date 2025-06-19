@@ -1,11 +1,14 @@
 import React, { use } from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../context/AuthContext';
-import { updateProfile } from 'firebase/auth';
+import { getAuth, updateProfile } from 'firebase/auth';
+import Swal from 'sweetalert2';
 
 const Registration = () => {
 
- const {createUser} = use(AuthContext)
+ const {createUser, setUser} = use(AuthContext)
+ const navigate = useNavigate();
+ const auth = getAuth();
 
   const handleRegister = e => {
     e.preventDefault();
@@ -27,9 +30,22 @@ const Registration = () => {
         photoURL: photoUrl,
       }).then(()=> {
         console.log("profile update successfully");
+       setUser({ ...createUser, displayName: name, photoURL: photoUrl });
+           Swal.fire({
+          icon: "success",
+          title: "Your account created successfully",
+          showConfirmButton: false,
+          timer: 1000
+        });
+          navigate('/');
       })
       .catch(err => {
         console.log(err.message);
+            Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Your email already exists!",
+      });
       })
 
       

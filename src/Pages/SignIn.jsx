@@ -1,9 +1,12 @@
 import React, { use } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import Swal from 'sweetalert2';
+import toast from 'react-hot-toast';
+
 
 const SignIn = () => {
-
+ const navigate = useNavigate();
  const {signInUser, signInWithGoogle} = use(AuthContext);
 
   const handleSignIn = (e) => {
@@ -17,19 +20,41 @@ const SignIn = () => {
     signInUser(email, password) 
     .then(result => {
       console.log(result.user);
+      const user = result.user;
+        if (user) {
+          Swal .fire({
+            icon: "success",
+            title: "your account log in successfully",
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+        navigate('/')
     })
     .catch(error=> {
-     console.log(error.massage);
+    if (error) {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Your email/password are wrong!",
+
+          });
+        }
     })
   };
 
   const handleGoogleSignIn = () => {
+    const loadingToast = toast.loading('Signing in with Google...');
      signInWithGoogle()
      .then(res => {
-      console.log(res);
+     const loggedUser = res.user;
+        toast.success('Logged in successfully!', { id: loadingToast });
+        navigate('/');
      })
-     .catch(err => {
-      console.log(err);
+     .catch(error => {
+      if (error) {
+          toast.error(error.message, { id: loadingToast });
+        }
      })
   }
 
