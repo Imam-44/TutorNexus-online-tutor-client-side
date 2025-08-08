@@ -91,6 +91,7 @@ const Navbar = () => {
               >
                 {theme === 'light' ? <FiMoon size={24} /> : <FiSun size={24} />}
               </button>
+              
               <button onClick={signOutUser} className="btn bg-fuchsia-500 text-white">Sign Out</button>
             </>
           ) : (
