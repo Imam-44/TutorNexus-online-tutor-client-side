@@ -16,35 +16,38 @@ const Stats = () => {
       .catch(err => console.error('Failed to fetch stats:', err));
   }, []);
 
+  // Common card styles
+  const cardClass = "bg-white rounded-lg shadow-md p-6 flex flex-col items-center justify-center transition-transform hover:scale-105 hover:shadow-xl";
+
   return (
-    <div className='py-16 bg-gradient-to-b from-fuchsia-50 to-white'>
-      <div className='grid grid-cols-2 md:grid-cols-4 gap-6 w-11/12 mx-auto'>
-        <div>
-          <h2 className='text-3xl font-bold text-gray-700 text-center'>
+    <div className='py-16 '>
+      <div className='grid grid-cols-2 md:grid-cols-4 gap-8 w-11/12 mx-auto'>
+        <div className={cardClass}>
+          <h2 className='text-4xl font-extrabold text-fuchsia-600'>
             <CountUp end={stats.totalTutorials} duration={3} />+
           </h2>
-          <h1 className='text-gray-600 font-semibold text-center'>Experienced Tutors</h1>
+          <h1 className='text-gray-700 font-semibold mt-3 text-center'>Experienced Tutors</h1>
         </div>
 
-        <div>
-          <h2 className='text-3xl font-bold text-gray-700 text-center'>
+        <div className={cardClass}>
+          <h2 className='text-4xl font-extrabold text-fuchsia-600'>
             <CountUp end={stats.totalReviews} duration={3} />+
           </h2>
-          <h1 className='text-gray-600 font-semibold text-center'>5-star Tutor Reviews</h1>
+          <h1 className='text-gray-700 font-semibold mt-3 text-center'>5-star Tutor Reviews</h1>
         </div>
 
-        <div>
-          <h2 className='text-3xl font-bold text-gray-700 text-center'>
+        <div className={cardClass}>
+          <h2 className='text-4xl font-extrabold text-fuchsia-600'>
             <CountUp end={stats.totalLanguages} duration={3} />+
           </h2>
-          <h1 className='text-gray-600 font-semibold text-center'>Languages Taught</h1>
+          <h1 className='text-gray-700 font-semibold mt-3 text-center'>Languages Taught</h1>
         </div>
 
-        <div>
-          <h2 className='text-3xl font-bold text-gray-700 text-center'>
+        <div className={cardClass}>
+          <h2 className='text-4xl font-extrabold text-fuchsia-600'>
             <CountUp end={stats.totalUsers} duration={3} />+
           </h2>
-          <h1 className='text-gray-600 font-semibold text-center'>Registered Users</h1>
+          <h1 className='text-gray-700 font-semibold mt-3 text-center'>Registered Users</h1>
         </div>
       </div>
     </div>
