@@ -2,7 +2,7 @@ import { FaFacebookF, FaTwitter, FaLinkedinIn, FaEnvelope, FaPhoneAlt, FaMapMark
 
 const Footer = () => {
   return (
-    <footer className=" p-12 pb-6  border-t border-fuchsia-200">
+    <footer id="footer" className=" p-12 pb-6  border-t border-fuchsia-200">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
 
         {/* Contact Info */}

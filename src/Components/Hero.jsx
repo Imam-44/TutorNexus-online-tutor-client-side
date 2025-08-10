@@ -31,6 +31,25 @@ const slides = [
 
 
 const Hero = () => {
+  
+  const scrollToFooter = () => {
+    const footer = document.getElementById('footer');
+    if(footer)  {
+      footer.scrollIntoView({ behavior: 'smooth'});
+    }
+  }
+
+const scrollToLanguageCategory = () => {
+  const element = document.getElementById('language-category');
+  if (element) {
+    const yOffset = -80; 
+    const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+};
+
+
   return (
     <div className="w-full h-full">
       <Swiper
@@ -62,10 +81,10 @@ const Hero = () => {
                     {slide.description}
                   </p>
                   <div className="flex gap-4">
-                    <button className="bg-fuchsia-500 text-white px-10 py-2 rounded-full hover:bg-fuchsia-400 transition duration-300 cursor-pointer">
+                    <button onClick={scrollToLanguageCategory} className="bg-fuchsia-500 text-white px-10 py-2 rounded-full hover:bg-fuchsia-400 transition duration-300 cursor-pointer">
                       Explore
                     </button>
-                    <button className="bg-transparent border border-white px-10 py-2 rounded-full hover:bg-white hover:text-black transition duration-300 cursor-pointer">
+                    <button onClick={scrollToFooter} className="bg-transparent border border-white px-10 py-2 rounded-full hover:bg-white hover:text-black transition duration-300 cursor-pointer">
                       Contact
                     </button>
                   </div>
