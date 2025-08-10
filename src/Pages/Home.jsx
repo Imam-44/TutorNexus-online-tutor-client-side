@@ -5,6 +5,7 @@ import LanguageCategory from "../Components/LanguageCategory";
 import WhyLearnWithUs from "../Components/WhyLearnWithUs";
 import LearnerReview from "../Components/LearnerReview";
 import AnimatedSection from "../Components/AnimatedSection";
+import LanguageTutorsSection from "../Components/LanguageTutorsSection";
 
 
 const Home = () => {
@@ -15,7 +16,9 @@ const Home = () => {
   return (
     <div className="bg-base-300">
       <AnimatedSection>
-        <Hero />
+      <div className="-mt-16">
+         <Hero  />
+      </div>
       </AnimatedSection>
 
       <AnimatedSection>
@@ -28,6 +31,10 @@ const Home = () => {
 
       <AnimatedSection>
         <WhyLearnWithUs />
+      </AnimatedSection>
+
+      <AnimatedSection>
+        <LanguageTutorsSection/>
       </AnimatedSection>
 
       <AnimatedSection>

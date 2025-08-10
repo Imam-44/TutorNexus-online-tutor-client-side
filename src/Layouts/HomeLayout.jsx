@@ -9,7 +9,10 @@ const HomeLayout = () => {
       <header>
          <Navbar/>
       </header>
-       <Outlet/>
+      
+      <main className='pt-16'>
+          <Outlet/>
+      </main>
 
       <footer>
       <Footer/>     
