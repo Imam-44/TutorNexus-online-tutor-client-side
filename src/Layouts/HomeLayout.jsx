@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../Components/Navbar';
 import { Outlet } from 'react-router';
 import Footer from '../Components/Footer';
+import ScrollToTop from '../context/ScrollToTop';
 
 const HomeLayout = () => {
   return (
@@ -9,8 +10,8 @@ const HomeLayout = () => {
       <header>
          <Navbar/>
       </header>
-      
-      <main className='pt-16'>
+      <ScrollToTop />
+      <main className='pt-16 bg-base-300 p-6'>
           <Outlet/>
       </main>
 
