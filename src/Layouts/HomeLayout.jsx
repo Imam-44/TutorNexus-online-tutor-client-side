@@ -11,7 +11,7 @@ const HomeLayout = () => {
          <Navbar/>
       </header>
       <ScrollToTop />
-      <main className='pt-16 bg-base-300 p-6'>
+      <main className='pt-16 bg-base-300'>
           <Outlet/>
       </main>
 

@@ -6,11 +6,14 @@ import Loading from '../Components/Loading';
 
 const FindTutors = () => {
   const [tutorials, setTutorials] = useState([]);
+  const [sortedTutorials, setSortedTutorials] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+
   const lang = searchParams.get('lang') || '';
   const [searchTerm, setSearchTerm] = useState(lang);
+  const [sortOrder, setSortOrder] = useState('none'); // none, asc, desc
 
   useEffect(() => {
     setLoading(true);
@@ -20,10 +23,25 @@ const FindTutors = () => {
       : `${import.meta.env.VITE_API_URL}/tutorials`;
 
     axios.get(url)
-      .then(res => setTutorials(res.data))
+      .then(res => {
+        setTutorials(res.data);
+        setSortedTutorials(res.data);
+      })
       .catch(err => console.error('Failed to load tutorials:', err))
       .finally(() => setLoading(false));
   }, [lang]);
+
+  useEffect(() => {
+    let sorted = [...tutorials];
+
+    if (sortOrder === 'asc') {
+      sorted.sort((a, b) => a.price - b.price);
+    } else if (sortOrder === 'desc') {
+      sorted.sort((a, b) => b.price - a.price);
+    }
+
+    setSortedTutorials(sorted);
+  }, [sortOrder, tutorials]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -44,8 +62,8 @@ const FindTutors = () => {
         {lang ? `Tutors for "${lang}"` : 'All Tutors'}
       </h2>
 
-      {/* 🔍 Search Bar */}
-      <form onSubmit={handleSearch} className=" w-8/12 mx-auto mb-10 flex gap-2 ">
+      {/* Search Bar */}
+      <form onSubmit={handleSearch} className="w-8/12 mx-auto mb-6 flex gap-2">
         <input
           type="text"
           placeholder="Search by language (e.g., English, Spanish)"
@@ -56,11 +74,27 @@ const FindTutors = () => {
         <button type="submit" className="btn bg-fuchsia-500 text-white">Search</button>
       </form>
 
-      {tutorials.length === 0 ? (
+      {/* Sorting Dropdown */}
+      <div className="w-8/12 mx-auto mb-8 flex justify-end items-center gap-4">
+        <label htmlFor="sort" className="font-semibold">Sort by Price:</label>
+        <select
+          id="sort"
+          value={sortOrder}
+          onChange={(e) => setSortOrder(e.target.value)}
+          className="select select-bordered w-48"
+        >
+          <option value="none">None</option>
+          <option value="asc">Low to High price</option>
+          <option value="desc">High to Low price</option>
+        </select>
+      </div>
+
+      {/* Tutor Cards */}
+      {sortedTutorials.length === 0 ? (
         <p className="text-center text-gray-500">No tutors found.</p>
       ) : (
-        <div className="">
-          {tutorials.map(tutor => (
+        <div>
+          {sortedTutorials.map(tutor => (
             <TutorCard key={tutor._id} tutor={tutor} />
           ))}
         </div>

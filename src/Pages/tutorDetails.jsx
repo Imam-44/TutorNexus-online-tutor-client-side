@@ -51,7 +51,8 @@ const TutorDetails = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden flex flex-col md:flex-row p-10  m-10 gap-8 items-center md:items-start">
+   <div className='py-16 p-4'>
+          <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden flex flex-col md:flex-row p-10   gap-8 items-center md:items-start">
       <ToastContainer />
       {/* Left side image */}
       <div className="flex-shrink-0 w-full md:w-1/2">
@@ -68,7 +69,7 @@ const TutorDetails = () => {
           <h2 className="text-4xl font-bold text-fuchsia-700">
             {userName} <span className="text-yellow-500 text-2xl ml-3">⭐ {rating || 5}</span>
           </h2>
-          <p className="text-fuchsia-700 font-extrabold text-3xl">BDT {price}</p>
+          <p className="text-fuchsia-700 font-extrabold text-3xl border border-fuchsia-500 rounded p-2">BDT {price}</p>
         </div>
 
         <p className="text-xl font-semibold text-gray-800">Language: <span className="font-normal">{language}</span></p>
@@ -83,6 +84,7 @@ const TutorDetails = () => {
         </button>
       </div>
     </div>
+   </div>
   );
 };
 
