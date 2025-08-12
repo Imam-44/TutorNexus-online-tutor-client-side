@@ -38,6 +38,7 @@ const Navbar = () => {
   return (
     <div className='shadow-sm bg-base-100 fixed w-full top-0 z-50'>
       <div className="navbar max-w-7xl mx-auto px-4 py-3">
+
         {/* Navbar Start */}
         <div className="navbar-start">
           <div className="dropdown">
@@ -49,9 +50,13 @@ const Navbar = () => {
             <ul tabIndex={0} className="menu-sm dropdown-content bg-base-100  rounded-box z-10 mt-3 w-52 p-2 shadow space-y-1">
               <li><NavLink to="/" className={navLinkClass}>Home</NavLink></li>
               <li><NavLink to="/find-tutors" className={navLinkClass}>Find Tutors</NavLink></li>
-              <li><NavLink to="/add-tutorials" className={navLinkClass}>Add Tutorials</NavLink></li>
-              <li><NavLink to={`/my-tutorials/${user?.email}`} className={navLinkClass}>My Tutorials</NavLink></li>
-              <li><NavLink to="/my-booked-tutors" className={navLinkClass}>My Booked Tutors</NavLink></li>
+              {user && (
+                <>
+                  <li><NavLink to="/add-tutorials" className={navLinkClass}>Add Tutorials</NavLink></li>
+                  <li><NavLink to={`/my-tutorials/${user.email}`} className={navLinkClass}>My Tutorials</NavLink></li>
+                  <li><NavLink to={`/my-booked-tutorials/${user.email}`} className={navLinkClass}>My Booked Tutors</NavLink></li>
+                </>
+              )}
             </ul>
           </div>
           <img src="/assets/logo.png" alt="TutorNexus Logo" className="h-7 ml-2 mr-2" />
@@ -63,9 +68,13 @@ const Navbar = () => {
           <ul className="menu-horizontal px-1 gap-4">
             <li><NavLink to="/" className={navLinkClass}>Home</NavLink></li>
             <li><NavLink to="/find-tutors" className={navLinkClass}>Find Tutors</NavLink></li>
-            <li><NavLink to="/add-tutorials" className={navLinkClass}>Add Tutorials</NavLink></li>
-            <li><NavLink to={`/my-tutorials/${user?.email}`} className={navLinkClass}>My Tutorials</NavLink></li>
-            <li><NavLink to="/my-booked-tutors" className={navLinkClass}>My Booked Tutors</NavLink></li>
+            {user && (
+              <>
+                <li><NavLink to="/add-tutorials" className={navLinkClass}>Add Tutorials</NavLink></li>
+                <li><NavLink to={`/my-tutorials/${user.email}`} className={navLinkClass}>My Tutorials</NavLink></li>
+                <li><NavLink to={`/my-booked-tutorials/${user.email}`} className={navLinkClass}>My Booked Tutors</NavLink></li>
+              </>
+            )}
           </ul>
         </div>
 

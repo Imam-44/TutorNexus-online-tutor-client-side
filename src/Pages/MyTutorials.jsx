@@ -1,16 +1,44 @@
-import React, { useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import { AuthContext } from '../context/AuthContext';
 import { toast, ToastContainer } from 'react-toastify';
 import Swal from 'sweetalert2';
 import { FaTrash, FaEdit } from 'react-icons/fa';
 import 'react-toastify/dist/ReactToastify.css';
+import Loading from '../Components/Loading';
 
 const MyTutorials = () => {
-  const data = useLoaderData();
-  const [tutorials, setTutorials] = useState(data?.data || []);
+  const { user } = useContext(AuthContext);
+  const [tutorials, setTutorials] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [editData, setEditData] = useState(null);
 
+  // API call with token inside useEffect
+useEffect(() => {
+  const fetchData = async () => {
+    if (!user) return;
+    setLoading(true);
+
+    try {
+      const token = await user.getIdToken();  // Fresh টোকেন নিলাম
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/my-tutorials/${user.email}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setTutorials(res.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchData();
+}, [user]);
+
+
+  // Delete ফাংশন, এখানে ও token পাঠানো হবে
   const handleDelete = async (id) => {
     Swal.fire({
       title: 'Are you sure?',
@@ -19,11 +47,15 @@ const MyTutorials = () => {
       showCancelButton: true,
       confirmButtonColor: '#d33',
       cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonText: 'Yes, delete it!',
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`${import.meta.env.VITE_API_URL}/tutorial/${id}`);
+          await axios.delete(`${import.meta.env.VITE_API_URL}/tutorial/${id}`, {
+            headers: {
+              Authorization: `Bearer ${user.accessToken}`,
+            },
+          });
           setTutorials(prev => prev.filter(t => t._id !== id));
           Swal.fire('Deleted!', 'Your tutorial has been deleted.', 'success');
         } catch (err) {
@@ -34,6 +66,7 @@ const MyTutorials = () => {
     });
   };
 
+  // Update ফাংশনও একইভাবে token পাঠাবে
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -45,7 +78,11 @@ const MyTutorials = () => {
     };
 
     try {
-      const res = await axios.patch(`${import.meta.env.VITE_API_URL}/tutorial/${editData._id}`, updated);
+      const res = await axios.patch(`${import.meta.env.VITE_API_URL}/tutorial/${editData._id}`, updated, {
+        headers: {
+          Authorization: `Bearer ${user.accessToken}`,
+        },
+      });
       if (res.data.modifiedCount > 0 || res.data.success) {
         toast.success('Update successful!');
         setTutorials(prev => prev.map(t => t._id === editData._id ? { ...t, ...updated } : t));
@@ -58,6 +95,8 @@ const MyTutorials = () => {
       console.error(err);
     }
   };
+
+  if (loading) return <Loading/>;
 
   return (
     <div className="max-w-6xl mx-auto p-4">

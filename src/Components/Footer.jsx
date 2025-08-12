@@ -1,4 +1,5 @@
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
+import { Link } from "react-router";
 
 const Footer = () => {
   return (
@@ -23,9 +24,9 @@ const Footer = () => {
         <div>
           <h4 className="text-lg font-semibold text-fuchsia-600 mb-4">Important Links</h4>
           <ul className="space-y-2">
-            <li><a href="#" className="hover:text-fuchsia-600 transition">Terms & Conditions</a></li>
-            <li><a href="#" className="hover:text-fuchsia-600 transition">Privacy Policy</a></li>
-            <li><a href="#" className="hover:text-fuchsia-600 transition">Refund Policy</a></li>
+            <li><Link to={'/terms-and-conditions'}  className="hover:text-fuchsia-600 transition">Terms & Conditions</Link></li>
+            <li><Link to={'/privacy-policy'}  className="hover:text-fuchsia-600 transition">Privacy Policy</Link></li>
+            <li><Link to={'/refund-policy'}  className="hover:text-fuchsia-600 transition">Refund Policy</Link></li>
           </ul>
         </div>
 

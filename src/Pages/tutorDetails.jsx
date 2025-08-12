@@ -78,7 +78,7 @@ const TutorDetails = () => {
 
         <button
           onClick={handleBook}
-          className="w-full md:w-auto bg-fuchsia-500 hover:bg-fuchsia-600 text-white px-10 py-4 rounded-md font-semibold shadow-md transition duration-300"
+          className="w-full md:w-auto bg-fuchsia-500 hover:bg-fuchsia-600 text-white px-10 py-4 rounded-md font-semibold shadow-md transition duration-300 cursor-pointer"
         >
           Book Now
         </button>

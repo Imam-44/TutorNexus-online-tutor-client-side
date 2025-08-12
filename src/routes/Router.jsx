@@ -12,6 +12,9 @@ import TutorDetails from "../Pages/tutorDetails";
 import PrivateRoute from "../context/PrivetRoute";
 import Loading from "../Components/Loading";
 import Error from "../Pages/error";
+import TermsAndConditions from "../Pages/TermsAndConditions";
+import PrivacyPolicy from "../Pages/PrivacyPolicy";
+import RefundPolicy from "../Pages/RefundPolicy";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +23,7 @@ const router = createBrowserRouter([
     children: [{
       index: true,
       loader: () => axios(`${import.meta.env.VITE_API_URL}/tutorials`),
-      hydrateFallbackElement: <Loading/>,
+      hydrateFallbackElement: <Loading />,
       element: <Home />
     },
     {
@@ -30,7 +33,7 @@ const router = createBrowserRouter([
     {
       path: '/tutorial/:id',
       loader: ({ params }) =>
-      axios(`${import.meta.env.VITE_API_URL}/tutorial/${params.id}`),
+        axios(`${import.meta.env.VITE_API_URL}/tutorial/${params.id}`),
       element: <PrivateRoute><TutorDetails /></PrivateRoute>
     },
     {
@@ -39,13 +42,10 @@ const router = createBrowserRouter([
     },
     {
       path: '/my-tutorials/:email',
-      loader: ({params}) =>
-       axios(`${import.meta.env.VITE_API_URL}/my-tutorials/${params.email}`),
-      hydrateFallbackElement: <Loading/>,
-      element: <PrivateRoute><MyTutorials /></PrivateRoute>
+      element:<PrivateRoute><MyTutorials /></PrivateRoute>
     },
     {
-      path: '/my-booked-tutors',
+      path: '/my-booked-tutorials/:email',
       element: <PrivateRoute><MyBookedTutors /></PrivateRoute>
     },
     {
@@ -55,12 +55,24 @@ const router = createBrowserRouter([
     {
       path: '/sign-in',
       element: <SignIn />
-    }
+    },
+    {
+      path: 'terms-and-conditions',
+      element: <TermsAndConditions/>
+    },
+    {
+      path: 'privacy-policy',
+      element: <PrivacyPolicy />
+    },
+    {
+      path: 'refund-policy',
+      element: <RefundPolicy />
+    },
     ]
   },
   {
     path: "*",
-    element: <Error/>
+    element: <Error />
   }
 ])
 

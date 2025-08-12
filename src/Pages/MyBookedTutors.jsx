@@ -5,29 +5,45 @@ import Loading from '../Components/Loading';
 
 const MyBookedTutors = () => {
   const { user } = React.useContext(AuthContext);
+  // console.log('token in the context', user.accessToken);
   const [bookedTutorials, setBookedTutorials] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    setLoading(true);
+useEffect(() => {
+  const fetchBookedTutorials = async () => {
     if (!user?.email) return;
-    axios.get(`${import.meta.env.VITE_API_URL}/my-booked-tutorials/${user.email}`)
-      .then(res => {
-        setBookedTutorials(res.data);
-      })
-      .catch(err => {
-        console.error(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [user?.email]);
+
+    setLoading(true);
+    try {
+     
+      const token = await user.getIdToken();
+      // console.log(token);
+     
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/my-booked-tutorials/${user.email}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setBookedTutorials(res.data);
+    } catch (error) {
+      console.error('Error fetching booked tutorials:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchBookedTutorials();
+}, [user]);
 
   const handleReview = async (id) => {
     try {
       const res = await axios.patch(`${import.meta.env.VITE_API_URL}/tutorial/${id}/review`);
       if (res.data.success) {
-       
+
         setBookedTutorials(prev =>
           prev.map(tutor =>
             tutor._id === id
